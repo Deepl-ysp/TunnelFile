@@ -1,0 +1,35 @@
+{
+    "server": {
+        "key": {
+            "isKey": true,
+            "PublicKey": "./keys/key.key",
+            "PrivateKey": "./keys/Ukey.key"
+        },
+        "ip": "0.0.0.0",
+        "port": 6125,
+        "WorkerNum": 4
+    },
+    "log": {
+        "debug": {
+            "logPath": "./log/server.log",
+            "logMaxSize": 500,
+            "logIndex": 0
+        },
+        "info": {
+            "logPath": "./log/server.log",
+            "logMaxSize": 500,
+            "logIndex": 0
+        },
+        "warn": {
+            "logPath": "./log/server.log",
+            "logMaxSize": 500,
+            "logIndex": 0
+        },
+        "error": {
+            "logPath": "./log/server.log",
+            "logMaxSize": 500,
+            "logIndex": 0
+        },
+        "useLogs": ["debug"]
+    }
+}
