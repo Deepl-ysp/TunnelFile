@@ -11,23 +11,6 @@
 // 此文件中的加解密实现仅供开发者学习 HPE 协议使用。
 // 公开的密钥和固定算法极易被逆向，请勿直接用于任何实际项目。
 // 正式环境中必须自行实现安全强度足够的加解密方案。
-
-
-namespace
-{
-    std::string generateDigitString(int length = 12)
-    {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(0, 9);
-        std::string result;
-        result.reserve(length);
-        for (int i = 0; i < length; ++i)
-            result.push_back('0' + dis(gen));
-        return result;
-    }
-}
-
 namespace HPECrypt
 {
     std::vector<uint8_t> loadPrivateKeyFromFile(const std::string &path)
@@ -185,4 +168,19 @@ namespace HPECrypt
         return base64KeyData;
     }
 
+}
+
+namespace
+{
+    std::string generateDigitString(int length = 12)
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(0, 9);
+        std::string result;
+        result.reserve(length);
+        for (int i = 0; i < length; ++i)
+            result.push_back('0' + dis(gen));
+        return result;
+    }
 }

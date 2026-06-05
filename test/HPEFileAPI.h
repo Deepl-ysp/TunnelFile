@@ -6,6 +6,46 @@
 #include <stdexcept>
 #include <fstream>
 
+namespace
+{
+    struct Signature
+    {
+        const char *magic;
+        size_t length;
+        const char *mime;
+    };
+
+    static const Signature kSignatures[] = {
+        {"\x89\x50\x4E\x47", 4, "image/png"},
+        {"\xFF\xD8\xFF\xE0", 4, "image/jpeg"},
+        {"\xFF\xD8\xFF\xE1", 4, "image/jpeg"},
+        {"\x47\x49\x46\x38", 4, "image/gif"},
+        {"\x42\x4D", 2, "image/bmp"},
+        {"\x49\x49\x2A\x00", 4, "image/tiff"},
+        {"\x4D\x4D\x00\x2A", 4, "image/tiff"},
+        {"\x50\x4B\x03\x04", 4, "application/zip"},
+        {"\x52\x61\x72\x21", 4, "application/x-rar-compressed"},
+        {"\x37\x7A\xBC\xAF", 4, "application/x-7z-compressed"},
+        {"\x25\x50\x44\x46\x2D", 5, "application/pdf"},
+        {"\x53\x51\x4C\x69\x74\x65\x20\x66\x6F\x72\x6D\x61\x74\x33\x00", 15, "application/x-sqlite3"},
+        {"\x3C\x3F\x78\x6D\x6C", 5, "application/xml"},
+        {"\x3C\x68\x74\x6D\x6C", 5, "text/html"},
+        {"\x4D\x5A", 2, "application/x-msdownload"},
+        {"\x7F\x45\x4C\x46", 4, "application/x-elf"},
+        {"\xCA\xFE\xBA\xBE", 4, "application/java-vm"},
+        {"\x49\x44\x33", 3, "audio/mpeg"},
+        {"\x52\x49\x46\x46", 4, nullptr},
+        {"\xD4\xC3\xB2\xA1", 4, "application/vnd.tcpdump.pcap"},
+        {"\x4D\x3C\xB2\xA1", 4, "application/vnd.tcpdump.pcap"},
+    };
+    static bool startsWith(const std::vector<uint8_t> &data, const Signature &sig)
+    {
+        if (data.size() < sig.length)
+            return false;
+        return std::memcmp(data.data(), sig.magic, sig.length) == 0;
+    }
+}
+
 namespace HPEFileAPI
 {
     std::string FileMimeType(const std::vector<uint8_t> &data)
@@ -69,45 +109,5 @@ namespace HPEFileAPI
         files.size = static_cast<unsigned int>(files.data.size());
         files.fileType = FileMimeType(files.data);
         return files;
-    }
-}
-
-namespace
-{
-    struct Signature
-    {
-        const char *magic;
-        size_t length;
-        const char *mime;
-    };
-
-    static const Signature kSignatures[] = {
-        {"\x89\x50\x4E\x47", 4, "image/png"},
-        {"\xFF\xD8\xFF\xE0", 4, "image/jpeg"},
-        {"\xFF\xD8\xFF\xE1", 4, "image/jpeg"},
-        {"\x47\x49\x46\x38", 4, "image/gif"},
-        {"\x42\x4D", 2, "image/bmp"},
-        {"\x49\x49\x2A\x00", 4, "image/tiff"},
-        {"\x4D\x4D\x00\x2A", 4, "image/tiff"},
-        {"\x50\x4B\x03\x04", 4, "application/zip"},
-        {"\x52\x61\x72\x21", 4, "application/x-rar-compressed"},
-        {"\x37\x7A\xBC\xAF", 4, "application/x-7z-compressed"},
-        {"\x25\x50\x44\x46\x2D", 5, "application/pdf"},
-        {"\x53\x51\x4C\x69\x74\x65\x20\x66\x6F\x72\x6D\x61\x74\x33\x00", 15, "application/x-sqlite3"},
-        {"\x3C\x3F\x78\x6D\x6C", 5, "application/xml"},
-        {"\x3C\x68\x74\x6D\x6C", 5, "text/html"},
-        {"\x4D\x5A", 2, "application/x-msdownload"},
-        {"\x7F\x45\x4C\x46", 4, "application/x-elf"},
-        {"\xCA\xFE\xBA\xBE", 4, "application/java-vm"},
-        {"\x49\x44\x33", 3, "audio/mpeg"},
-        {"\x52\x49\x46\x46", 4, nullptr},
-        {"\xD4\xC3\xB2\xA1", 4, "application/vnd.tcpdump.pcap"},
-        {"\x4D\x3C\xB2\xA1", 4, "application/vnd.tcpdump.pcap"},
-    };
-    static bool startsWith(const std::vector<uint8_t> &data, const Signature &sig)
-    {
-        if (data.size() < sig.length)
-            return false;
-        return std::memcmp(data.data(), sig.magic, sig.length) == 0;
     }
 }
