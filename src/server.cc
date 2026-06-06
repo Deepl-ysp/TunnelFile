@@ -1,8 +1,7 @@
 #include <iostream>
 #include "config.h"
-#include "netWork.h"
+#include "HPENetWork.h"
 #include "HPEFileAPI.h"
-
 
 int main() {
     #ifdef _WIN32
@@ -12,13 +11,13 @@ int main() {
     #endif
     asio::io_context io;
 
-    auto server = std::make_shared<net::TcpServer>(io, NET_SERVER_IP, static_cast<uint16_t>(NET_PORT));
+    auto server = std::make_shared<HPENetWork::TcpServer>(io, NET_SERVER_IP, static_cast<uint16_t>(NET_PORT));
 
-    server->set_on_message([](net::TcpSession::Ptr session, const std::string& data) {
+    server->set_on_message([](HPENetWork::TcpSession::Ptr session, const std::string& data) {
         std::cout << "收到[" << session.get() << "]: " << data << std::endl;
     });
 
-    server->set_on_new_session([](net::TcpSession::Ptr session) {
+    server->set_on_new_session([](HPENetWork::TcpSession::Ptr session) {
         std::cout << "新客户端连接: " << session.get() << std::endl;
         session->send("欢迎登陆服务器");
     });

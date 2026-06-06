@@ -127,7 +127,7 @@ TunnelFile/
 
 ## 许可证
 
-本项目采用 [MIT License](LICENSE) 进行许可。
+本项目采用 [MIT License](LICENSE.md) 进行许可。
 ```text
 MIT License
 

@@ -9,7 +9,7 @@
 #include <algorithm>
 
 /**
- ## HPEHash 专为HP项目设计的简易版Hash实现 / HPEHash: A Simplified Hash Implementation for HPE Project
+ ## HPEHash 专为HPE项目设计的简易版Hash实现 / HPEHash: A Simplified Hash Implementation for HPE Project
  - 所属项目 / Associated Project ：HPE (High-Performance Encryption) / HPEHash / TunnelFile
  - 项目链接/Project Link ：https://github.com/Deepl-ysp/TunnelFile/tree/main/include
 - 版本 / Version：1.0
@@ -17,8 +17,8 @@
 - 创建时间 / Create Time：2026-06-03
 - 最近更新 / Last Update：2026-06-03
 - 许可证 / License：MIT License
-- 使用示例：
- ```cpp
+- 使用示例 / Usage Example：
+ ```c++
     HPEHash::HPEMD5 md5;
     md5.update("Hello, World!");
     std::string hash = md5.finalHex();
@@ -38,8 +38,8 @@ namespace HPEHash
     - 创建时间 / Create Time：2026-06-03
     - 最近更新 / Last Update：2026-06-03
     - 许可证 / License：MIT License
-    - 使用示例：
-     ```cpp
+    - 使用示例 / Usage Example：
+     ```c++
      HPEHash::HPEMD5 md5;
      md5.update("Hello, World!");
      std::string hash = md5.finalHex();
@@ -102,8 +102,8 @@ namespace HPEHash
     - 创建时间 / Create Time：2026-06-03
     - 最近更新 / Last Update：2026-06-03
     - 许可证 / License：MIT License
-    - 使用示例：
-     ```cpp
+    - 使用示例 / Usage Example：
+     ```c++
         std::vector<uint8_t> input = {0x01, 0x02, 0x03};
         size_t outputLength = 32; // 256 bits
         std::vector<uint8_t> hash = HPEHash::HPEShake256::digest(input, outputLength);
